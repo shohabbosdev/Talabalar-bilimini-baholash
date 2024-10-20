@@ -1,0 +1,6 @@
+streamlit
+streamlit-option-menu
+streamlit-elements==0.1.*
+Faker
+segno
+reportlab
