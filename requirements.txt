@@ -4,5 +4,3 @@ streamlit-elements==0.1.*
 Faker
 segno
 reportlab
-SQLAlchemy 
-mysqlclient
