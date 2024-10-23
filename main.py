@@ -20,7 +20,7 @@ if selected == 'Bosh sahifa':
     import streamlit as st
 
     @st.cache_data
-    def get_profile_dataset(number_of_items: int = 100, seed: int = 0) -> pd.DataFrame:
+    def get_profile_dataset(number_of_items: int = 25, seed: int = 0) -> pd.DataFrame:
         new_data = []
 
         def calculate_age(born):
@@ -39,69 +39,69 @@ if selected == 'Bosh sahifa':
             profile = fake.profile()
             new_data.append(
                 {
-                    "avatar": f"https://picsum.photos/400/200?lock={i}",
-                    "name": profile["name"],
-                    "age": calculate_age(profile["birthdate"]),
-                    "active": random.choice([True, False]),
-                    "daily_activity": np.random.rand(25),
-                    "homepage": profile["website"][0],
+                    "rasmi": f"https://picsum.photos/400/200?lock={i}",
+                    "ismi": profile["name"],
+                    "yoshi": calculate_age(profile["birthdate"]),
+                    "faolligi": random.choice([True, False]),
+                    "kunlik_faolligi": np.random.rand(25),
+                    "bosh_sahifa": profile["website"][0],
                     "email": profile["mail"],
-                    "activity": np.random.randint(2, 90, size=25),
-                    "gender": random.choice(["male", "female", "other", None]),
-                    "birthdate": profile["birthdate"],
-                    "status": round(random.uniform(0, 1), 2),
+                    "faol": np.random.randint(2, 90, size=25),
+                    "jinsi": random.choice(["erkak", "ayol", "boshqa", None]),
+                    "Tug'ilgan yili": profile["birthdate"],
+                    "holati": round(random.uniform(0, 1), 2),
                 }
             )
 
         profile_df = pd.DataFrame(new_data)
-        profile_df["gender"] = profile_df["gender"].astype("category")
+        profile_df["jinsi"] = profile_df["jinsi"].astype("category")
         return profile_df
 
 
     column_configuration = {
-        "name": st.column_config.TextColumn(
-            "Name", help="The name of the user", max_chars=100
+        "ismi": st.column_config.TextColumn(
+            "Ismi", help="Talaba ismi", max_chars=100
         ),
-        "avatar": st.column_config.ImageColumn("Avatar", help="The user's avatar"),
-        "active": st.column_config.CheckboxColumn("Is Active?", help="Is the user active?"),
-        "homepage": st.column_config.LinkColumn(
-            "Homepage", help="The homepage of the user"
+        "rasmi": st.column_config.ImageColumn("Avatar", help="Talaba rasmi"),
+        "faolligi": st.column_config.CheckboxColumn("Faolmi?", help="Ushbu foydalanuvchi faolmi?"),
+        "bosh_sahifa": st.column_config.LinkColumn(
+            "Bosh sahifa", help="Talaba bosh sahifasi"
         ),
-        "gender": st.column_config.SelectboxColumn(
-            "Gender", options=["male", "female", "other"]
+        "jinsi": st.column_config.SelectboxColumn(
+            "Jinsi", options=["erkak", "ayol", "boshqa"]
         ),
-        "age": st.column_config.NumberColumn(
-            "Age",
+        "yoshi": st.column_config.NumberColumn(
+            "Yoshi",
             min_value=0,
             max_value=120,
-            format="%d years",
-            help="The user's age",
+            format="%d yosh",
+            help="Talaba yoshi",
         ),
-        "activity": st.column_config.LineChartColumn(
-            "Activity (1 year)",
+        "faol": st.column_config.LineChartColumn(
+            "1 yillik faolligi",
             help="The user's activity over the last 1 year",
             width="large",
             y_min=0,
             y_max=100,
         ),
-        "daily_activity": st.column_config.BarChartColumn(
-            "Activity (daily)",
+        "kunlik_faolligi": st.column_config.BarChartColumn(
+            "Kunlik faolligi",
             help="The user's activity in the last 25 days",
             width="medium",
             y_min=0,
             y_max=1,
         ),
-        "status": st.column_config.ProgressColumn(
-            "Status", min_value=0, max_value=1, format="%.2f"
+        "holati": st.column_config.ProgressColumn(
+            "Holati", min_value=0, max_value=1, format="%.2f"
         ),
-        "birthdate": st.column_config.DateColumn(
-            "Birthdate",
+        "Tug'ilgan kuni": st.column_config.DateColumn(
+            "Tug'ilgan kuni",
             help="The user's birthdate",
-            min_value=date(1920, 1, 1),
+            min_value=date(1999, 1, 1),
         ),
         "email": st.column_config.TextColumn(
-            "Email",
-            help="The user's email address",
+            "Elektron pochta",
+            help="Talaba elektron pochtasi",
             validate=r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$",
         ),
     }
